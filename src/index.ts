@@ -18,23 +18,110 @@ let gameState = {
     questions: [],
     difficulty: "Easy"
 };
+const homeBtn= document.getElementById("home-screen");
+const newBtn=document.getElementById('new-btn');
+const setting=document.getElementById("play-screen");
+const game= document.getElementById("game-screen");
+const result=document.getElementById("results-screen");
+const player1Name=document.getElementById('player1-name')as HTMLInputElement;
+const player2Name=document.getElementById('player2-name')as HTMLInputElement;
+const player1Score=document.getElementById('player1-score');
+const player2Score=document.getElementById('player2-score');
+const difficlty=document.getElementById('difficulty-select') as HTMLSelectElement;
+const  selectBtn=document.getElementById('start-game-btn');
+const player1NameDisplay=document.getElementById("player1-name-display");
+const player2NameDisplay=document.getElementById("player2-name-display");
+const questionNumber=document.querySelector('#question-number');
+const QuestionText=document.getElementById('question-text');
+const optionsContainer=document.getElementById('options-container');
+const submitBtn=document.getElementById('submit-btn') as HTMLButtonElement;
+const timeDisplay = document.getElementById("time-display");
+const timeRemaining=document.querySelector('.time-remaining')
+const player1Badge=document.getElementById('player1-badge');
+const player2Badge=document.getElementById('player2-badge');
+const player1ResultName= document.getElementById("player1-result-name")
+const player2ResultName= document.getElementById("player2-result-name");
+const player1FinalScore=document.getElementById("player1-final-score");
+const player2FinalScore=document.getElementById("player2-final-score");
+const player1Correct= document.getElementById("player1-correct");
+const player2Correct= document.getElementById("player2-correct");
+const playAgain=document.getElementById("play-again-btn");
+const backHomeBtn=document.getElementById("home-btn");
+const saveBtn=document.getElementById('save-btn');
+const resumeBtn=document.getElementById('resume-btn') as HTMLButtonElement;
+const saveNotification=document.getElementById('save-notification');
+
+// const homeScreenDiv1=document.createElement('DIV');
+// const home_h1=document.createElement('h1');
+// home_h1.textContent="Two-Player Quiz Challenge";
+// const home_p=document.createElement('p');
+// home_p.textContent="Test your knowledge against each other in this exciting quiz game!";
+// const homeScreenDiv2=document.createElement('DIV');
+// homeScreenDiv1.className="btn-container";
+// const btn1_home=document.createElement('button');
+// const btn2_home=document.createElement('button');
+// btn1_home.id="new-btn";
+// btn2_home.id="resume-btn";
+// homeScreenDiv2.appendChild(btn1_home);
+
+// homeScreenDiv.appendChild(home_p);
+// homeScreenDiv.appendChild(home_h1);
 
 
-function showPlayScreen() {
-    console.log("hello world");
-    homeBtn.style.display = "none";
-    setting.style.display = "block";
-    game.style.display = "none";
+
+function showHomeScreen(){
+    if(homeBtn){
+        homeBtn.style.display = "block";
+    }
+
+    if (localStorage.getItem("quizGameState")) {
+        if(resumeBtn){
+            resumeBtn.disabled = false;
+        }
+    }
+    if(setting){
+        setting.style.display = "none";
+    }
+    if(game){
+        game.style.display = "none";
+    }
+   if(result){
     result.style.display = "none";
+   }
+    
+}
+function showPlayScreen() {
+    if(homeBtn){
+        homeBtn.style.display = "none";
+    }
+    if(setting){
+        setting.style.display = "block";
+    }
+    if(game){
+        game.style.display = "none";
+    }
+    if(result){
+        result.style.display = "none";
+    }
+    
  
 }
 function showGameScreen(){
     console.log("game screen");
     console.log(player1Name.value,player2Name.value,difficlty.value);
-    homeBtn.style.display = "none";
-    setting.style.display = "none";
-    game.style.display = "block";
-    result.style.display = "none";
+    if(homeBtn){
+        homeBtn.style.display = "none";
+    }
+    if(setting){
+        setting.style.display = "none";
+    }
+    if(game){
+        game.style.display = "block";
+    }
+    if(result){
+        result.style.display = "none";
+    } 
+
     player1NameDisplay.textContent=player1Name.value;
     player2NameDisplay.textContent=player2Name.value;
 
@@ -62,41 +149,9 @@ function showGameScreen(){
 }
 let timerInterval;
 let timeoutId;
-// if (localStorage.getItem("quizGameState")) {
-//     resumeGameBtn.disabled = false;
-// }
+
  
-const homeBtn= document.getElementById("home-screen")!;
-const newBtn=document.getElementById('new-btn')!;
-const setting=document.getElementById("play-screen")!
-const game= document.getElementById("game-screen")!;
-const result=document.getElementById("results-screen")!
-const player1Name=document.getElementById('player1-name')as HTMLInputElement;
-const player2Name=document.getElementById('player2-name')as HTMLInputElement;
-const player1Score=document.getElementById('player1-score')!;
-const player2Score=document.getElementById('player2-score')!;
-const difficlty=document.getElementById('difficulty-select') as HTMLSelectElement;
-const  selectBtn=document.getElementById('start-game-btn');
-const player1NameDisplay=document.getElementById("player1-name-display")!;
-const player2NameDisplay=document.getElementById("player2-name-display")!;
-const questionNumber=document.querySelector('#question-number')!;
-const QuestionText=document.getElementById('question-text')!;
-const optionsContainer=document.getElementById('options-container')!;
-const submitBtn=document.getElementById('submit-btn')! as HTMLButtonElement;
-const timeDisplay = document.getElementById("time-display");
-const timeRemaining=document.querySelector('.time-remaining')
-const player1Badge=document.getElementById('player1-badge')!;
-const player2Badge=document.getElementById('player2-badge')!;
-const player1ResultName= document.getElementById("player1-result-name")
-const player2ResultName= document.getElementById("player2-result-name");
-const player1FinalScore=document.getElementById("player1-final-score");
-const player2FinalScore=document.getElementById("player2-final-score");
-const player1Correct= document.getElementById("player1-correct");
-const player2Correct= document.getElementById("player2-correct");
-const playAgain=document.getElementById("play-again-btn");
-const backHomeBtn=document.getElementById("home-btn");
-const saveBtn=document.getElementById('save-btn');
-const resumeBtn=document.getElementById('resume-btn');
+
 newBtn.addEventListener("click",showPlayScreen);
 selectBtn?.addEventListener("click",showGameScreen);
 
@@ -124,10 +179,17 @@ function loadQuestion() {
     }
     const currentQuestion = gameState.questions[gameState.currentQuestionIndex];
     console.log(currentQuestion)
-    questionNumber.textContent = String(gameState.currentQuestionIndex + 1);
-    QuestionText.textContent = currentQuestion.question;
+    if(questionNumber){
+        questionNumber.textContent = String(gameState.currentQuestionIndex + 1);
+    }
+    if(QuestionText){
+        QuestionText.textContent = currentQuestion.question;
+    }
    
-    optionsContainer.innerHTML = "";
+    if(optionsContainer){
+        optionsContainer.innerHTML = "";
+    }
+   
 
     currentQuestion.options.forEach((option, index) => {
         const optionElement = document.createElement("DIV");
@@ -145,7 +207,9 @@ function loadQuestion() {
             submitBtn.disabled = false;
         });
         
-        optionsContainer.appendChild(optionElement);
+        if(optionsContainer){
+            optionsContainer.appendChild(optionElement);
+        }
     });
     gameState.timeRemaining = 10;
     updateTimer();
@@ -164,7 +228,9 @@ function startTimer() {
     }, 10000);
 }
 function updateTimer(){
-    timeDisplay.textContent = Math.ceil(gameState.timeRemaining);
+    if(timeDisplay){
+        timeDisplay.textContent = String(Math.ceil(gameState.timeRemaining));
+    }
     
 }
 function clearTimers() {
@@ -199,9 +265,13 @@ function submitAnswer(isTimeout = false) {
                 gameState.player2.correctAnswers++;
             }
             
+            if(player1Score){
+                player1Score.textContent = String(gameState.player1.score);
+            }
+            if(player2Score){
+                player2Score.textContent = String(gameState.player2.score);
+            }
             
-            player1Score.textContent = String(gameState.player1.score);
-            player2Score.textContent = String(gameState.player2.score);
         }
     }
     console.log(2)
@@ -238,14 +308,29 @@ function updatePlayerInfo() {
     
     player1Name.textContent = gameState.player1.name;
     player2Name.textContent = gameState.player2.name;
-    player1Score.textContent = String(gameState.player1.score);
-    player2Score.textContent = String(gameState.player2.score);
+    if(player1Score){
+        player1Score.textContent = String(gameState.player1.score);
+    }
+    if(player2Score){
+        player2Score.textContent = String(gameState.player2.score);
+    }
+
     if (gameState.currentPlayer === 1) {
-        player1Badge.classList.add("active-player");
-        player2Badge.classList.remove("active-player");
+        if(player1Badge){
+            player1Badge.classList.add("active-player");
+        }
+        if(player2Badge){
+            player2Badge.classList.remove("active-player");
+        }
+        
     } else {
-        player1Badge.classList.remove("active-player");
-        player2Badge.classList.add("active-player");
+        if(player1Badge){
+            player1Badge.classList.remove("active-player");
+        }
+        if(player2Badge){
+            player2Badge.classList.add("active-player");
+        }
+       
     }
 }
 function endGame() {
@@ -310,5 +395,16 @@ function resumeGame() {
     }
 }
 function saveGame() {
+    alert("hello");
     localStorage.setItem("quizGameState", JSON.stringify(gameState));
+    
+    saveNotification.style.display = "block";
+    setTimeout(() => {
+        saveNotification.style.display = "none";
+    }, 2000);
+    showHomeScreen();
+    
 }
+
+resumeBtn?.addEventListener("click",resumeGame);
+saveBtn?.addEventListener("click",saveGame);
