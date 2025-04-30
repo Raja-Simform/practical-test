@@ -7,15 +7,15 @@
     <script src="./src/index.ts" type="module"></script>
     <style>
         :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
+            --primary: #64ce72;
+            --secondary: #0e0aee;
             --player1: #f72585;
             --player2: #4cc9f0;
             --correct: #2ec4b6;
-            --wrong: #e63946;
-            /* --neutral: #f8f9fa; */
-            --dark: #212529;
-        }
+            --wrong: #e63946; 
+            --neutral: #f8f9fa; 
+            --dark: #212529; 
+        } 
         
         * {
             box-sizing: border-box;
@@ -123,21 +123,7 @@
             transform: scale(1.05);
         }
         
-        .timer-container {
-            margin: 20px auto;
-            width: 100%;
-            height: 10px;
-            background-color: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .timer-bar {
-            height: 100%;
-            width: 100%;
-            background-color: var(--primary);
-            transition: width 0.1s linear;
-        }
+       
         
         .time-remaining {
             text-align: center;
@@ -288,16 +274,7 @@
             <label for="player2-name">Player 2 Name:</label>
             <input type="text" id="player2-name" placeholder="Player 2" required>
         </div>
-        <!-- <div>
-            <label for="category-select">Category:</label>
-            <select id="category-select">
-                <option value="general">General Knowledge</option>
-                <option value="science">Science</option>
-                <option value="history">History</option>
-                <option value="geography">Geography</option>
-                <option value="entertainment">Entertainment</option>
-            </select>
-        </div> -->
+  
         <div>
             <label for="difficulty-select">Difficulty:</label>
             <select id="difficulty-select">
@@ -324,13 +301,10 @@
         </div>
  
         <div class="time-remaining">Time: <span id="time-display">10</span>s</div>
-        <div class="timer-container">
-            <div id="timer-bar" class="timer-bar"></div>
-        </div>
  
         <div class="question-container">
             <div class="question-number">Question <span id="question-number">1</span> of 10</div>
-            <div id="question-text" class="question-text">Question text will appear here</div>
+            <div id="question-text" class="question-text">Qu</div>
             <div id="options-container" class="options-container">
                <!-- optionss------------- -->
             </div>
@@ -365,9 +339,7 @@
         </div>
     </div>
  
-    <!-- <div class="save-notification" id="save-notification">
-        Game progress saved!
-    </div> -->
+   
  
 </body>
 </html>
